@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+	<title>Frontend Mentor | [Challenge Name Here]</title>
+
+	<!--  themeColors  -->
+	<link rel="stylesheet" href="text/css" href="./style/theme.css">
+	<style>
+		:root {
+			--bg-color-gradient-start: 255, 255, 255;
+			--bg-color-gradient-end: 255, 255, 255;
+			--button-color-gradient-start: 163, 168, 240;
+			--button-color-gradient-end: 105, 111, 221;
+			--text-color-full: 73, 76, 95;
+			--text-color-muted: 109, 112, 141;
+			--text-color-button: 255, 255, 255;
+			--text-color-button-active: 105, 111, 221;
+			--divider-color: 179, 181, 198, 10;
+		}
+
+		.theme-featured {
+			--bg-color-gradient-start: 163, 168, 240;
+			--bg-color-gradient-end: 105, 111, 221;
+			--button-color-gradient-start: 255, 255, 255;
+			--button-color-gradient-end: 255, 255, 255;
+			--text-color-full: 73, 76, 95;
+			--text-color-muted: 109, 112, 141;
+			--text-color-button: 105, 111, 221;
+			--text-color-button-active: 255, 255, 255;
+			--divider-color: 179, 181, 198, 10;
+		}
+
+	</style>
+
+	<!--  font  -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+	<!-- Tailwind play cdn -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="src/tailwind.config.js"></script>
+
+	<!-- Alpine Core -->
+	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</head>
+<body x-data="component()" class="antialiased text-custom bg-blue-50 text-blue-600 overflow-x-hidden">
+<img class="absolute right-0 ml-auto -mr-[12.2rem] -mt-9" src="./images/bg-top.svg" alt="">
+<img class="hidden" src="./images/bg-bottom.svg" alt="">
+<main class="relative">
+	<section class="pt-14">
+		<h1 class="pt-1 text-center text-3.5xl text-blue-500">
+			Our Pricing
+		</h1>
+		<p class="text-color-text-full">base text color</p>
+		<p class="text-color-text-muted">muted text color</p>
+		<div class="flex items-center justify-center mt-6 p-3 gap-6 md:py-4 md:mt-8 md:mb-3">
+			<span class="text-blue-100">Annually</span>
+			<div class="relative inline-flex items-center">
+				<div class="absolute inset-0 bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end rounded-full"></div>
+				<button @click="billingMonthly = !billingMonthly" type="button" class="relative inline-flex items-center overflow-hidden h-8 w-14 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" role="switch" aria-checked="false" aria-labelledby="annual-billing-label">
+					<span class="sr-only" x-text="billingMonthly ? 'Yearly' : 'Monthly'"></span>
+					<span aria-hidden="true" :class="billingMonthly ? 'translate-x-6' : 'translate-x-1'" class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white ring-0 transition duration-200 ease-in-out"></span>
+				</button>
+			</div>
+			<span class="text-blue-100">Monthly</span>
+		</div>
+	</section>
+	<section class="grid gap-6 mx-6 mt-16">
+		<template x-for="plan in plans" :key="plan.id">
+			<section
+					:class="plan.featured ? 'featured' : ''"
+					class="relative bg-white"
+			>
+				<div :class="plan.featured ? 'absolute rounded-lg inset-0 pointer-events-none bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end ' : 'hidden'"></div>
+				<div class="relative rounded-lg px-7 pt-8 pb-7 text-center shadow-xl shadow-blue-gradient-end/10">
+					<h2 class="text-lg" x-text="plan.name"></h2>
+					<p class="font-bold inline-flex tracking-[-0.15em] items-center gap-2 py-6">
+						<span class="text-4.5xl">&dollar;</span>
+						<span class="text-7xl" x-text="billingMonthly ? plan.priceMonthly : plan.priceYearly"></span>
+					</p>
+					<ul class="pt-2 border-b border-color-divider divide-y divide-color-divider pb-px mb-7">
+						<template x-for="item in plan.specifications" :key="item.id">
+							<li class="pt-4 pb-3.5" x-text="item.name"></li>
+						</template>
+					</ul>
+					<button type="button" class="mb-px w-full px-5 py-3 tracking-wider text-sm border border-white rounded-md uppercase bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end hover:border-blue-900 hover:from-white hover:to-white">Learn More</button>
+				</div>
+			</section>
+		</template>
+	</section>
+</main>
+
+<footer class="fixed bottom-0 inset-x-0 text-center text-xs text-black bg-white/80 py-1 opacity-0 translate-y-2 hover:opacity-100 hover:translate-y-0 transform transition ease-in-out duration-150">
+	Challenge by <a class="hover:underline" href="https://www.frontendmentor.io/challenges/pricing-component-with-toggle-8vPwRMIC" target="_blank">Frontend Mentor</a>.
+	Coded by <a class="hover:underline" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
+</footer>
+<script src="src/pricing.js"></script>
+</body>
+</html>
