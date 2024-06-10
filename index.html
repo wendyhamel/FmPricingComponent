@@ -8,35 +8,6 @@
 
 	<title>Frontend Mentor | [Challenge Name Here]</title>
 
-	<!--  themeColors  -->
-	<link rel="stylesheet" href="text/css" href="./style/theme.css">
-	<style>
-		:root {
-			--bg-color-gradient-start: 255, 255, 255;
-			--bg-color-gradient-end: 255, 255, 255;
-			--button-color-gradient-start: 163, 168, 240;
-			--button-color-gradient-end: 105, 111, 221;
-			--text-color-full: 73, 76, 95;
-			--text-color-muted: 109, 112, 141;
-			--text-color-button: 255, 255, 255;
-			--text-color-button-active: 105, 111, 221;
-			--divider-color: 179, 181, 198, 10;
-		}
-
-		.theme-featured {
-			--bg-color-gradient-start: 163, 168, 240;
-			--bg-color-gradient-end: 105, 111, 221;
-			--button-color-gradient-start: 255, 255, 255;
-			--button-color-gradient-end: 255, 255, 255;
-			--text-color-full: 73, 76, 95;
-			--text-color-muted: 109, 112, 141;
-			--text-color-button: 105, 111, 221;
-			--text-color-button-active: 255, 255, 255;
-			--divider-color: 179, 181, 198, 10;
-		}
-
-	</style>
-
 	<!--  font  -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,21 +17,53 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="src/tailwind.config.js"></script>
 
+	<style>
+		:root {
+			--bg-gradient-start: 255, 255, 255;
+			--bg-gradient-end: 255, 255, 255;
+			--button-gradient-start: 163, 168, 240;
+			--button-gradient-end: 105, 111, 221;
+			--button-gradient-start-inverted: 163, 168, 240, 0;
+			--button-gradient-end-inverted: 105, 111, 221, 0;
+			--text-full: 73, 76, 95;
+			--text-muted: 109, 112, 141;
+			--text-button: 255, 255, 255;
+			--text-button-inverted: 105, 111, 221;
+			--divider: 105, 111, 221;
+			--border: 179, 181, 198;
+		}
+
+		.theme-featured {
+			--bg-gradient-start: 163, 168, 240;
+			--bg-gradient-end: 105, 111, 221;
+			--button-gradient-start: 255, 255, 255;
+			--button-gradient-end: 255, 255, 255;
+			--button-gradient-start-inverted: 255, 255, 255, 0;
+			--button-gradient-end-inverted: 255, 255, 255, 0;
+			--text-full: 255, 255, 255;
+			--text-muted: 255, 255, 255;
+			--text-button: 105, 111, 221;
+			--text-button-inverted: 255, 255, 255;
+			--divider: 246, 246, 254;
+			--border: 255, 255, 255;
+		}
+
+	</style>
+
+
 	<!-- Alpine Core -->
 	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
 <body x-data="component()" class="antialiased text-custom bg-blue-50 text-blue-600 overflow-x-hidden">
-<img class="absolute right-0 ml-auto -mr-[12.2rem] -mt-9" src="./images/bg-top.svg" alt="">
-<img class="hidden" src="./images/bg-bottom.svg" alt="">
+<img class="absolute right-0 ml-auto -mr-[12.2rem] -mt-9 md:mr-0 md:mt-0" src="./images/bg-top.svg" alt="">
+<img class="hidden md:block md:absolute md:bottom-0 md:-mb-14" src="./images/bg-bottom.svg" alt="">
 <main class="relative">
-	<section class="pt-14">
+	<section class="pt-14 md:pt-16">
 		<h1 class="pt-1 text-center text-3.5xl text-blue-500">
 			Our Pricing
 		</h1>
-		<p class="text-color-text-full">base text color</p>
-		<p class="text-color-text-muted">muted text color</p>
-		<div class="flex items-center justify-center mt-6 p-3 gap-6 md:py-4 md:mt-8 md:mb-3">
+		<div class="flex items-center justify-center mt-6 p-3 gap-6">
 			<span class="text-blue-100">Annually</span>
 			<div class="relative inline-flex items-center">
 				<div class="absolute inset-0 bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end rounded-full"></div>
@@ -72,26 +75,28 @@
 			<span class="text-blue-100">Monthly</span>
 		</div>
 	</section>
-	<section class="grid gap-6 mx-6 mt-16">
+	<section class="grid gap-8 mx-auto px-6 mt-16 mb-16 pb-2 md:grid-cols-3 md:max-w-[1100px] md:gap-0 md:items-center md:mt-12 md:mb-24">
 		<template x-for="plan in plans" :key="plan.id">
 			<section
-					:class="plan.featured ? 'featured' : ''"
-					class="relative bg-white"
+					:class="plan.featured ? 'theme-featured bg-gradient-to-b from-blue-gradient-start to-blue-gradient-end md:pt-14 md:pb-12' : 'bg-white'"
+					class="px-7 pt-8 pb-7 text-center shadow-xl shadow-blue-gradient-end/10 rounded-lg inset-0 md:px-8 md:rounded-xl"
 			>
-				<div :class="plan.featured ? 'absolute rounded-lg inset-0 pointer-events-none bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end ' : 'hidden'"></div>
-				<div class="relative rounded-lg px-7 pt-8 pb-7 text-center shadow-xl shadow-blue-gradient-end/10">
-					<h2 class="text-lg" x-text="plan.name"></h2>
-					<p class="font-bold inline-flex tracking-[-0.15em] items-center gap-2 py-6">
-						<span class="text-4.5xl">&dollar;</span>
-						<span class="text-7xl" x-text="billingMonthly ? plan.priceMonthly : plan.priceYearly"></span>
-					</p>
-					<ul class="pt-2 border-b border-color-divider divide-y divide-color-divider pb-px mb-7">
-						<template x-for="item in plan.specifications" :key="item.id">
-							<li class="pt-4 pb-3.5" x-text="item.name"></li>
-						</template>
-					</ul>
-					<button type="button" class="mb-px w-full px-5 py-3 tracking-wider text-sm border border-white rounded-md uppercase bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end hover:border-blue-900 hover:from-white hover:to-white">Learn More</button>
-				</div>
+				<h2 class="text-lg text-color-muted" x-text="plan.name"></h2>
+				<p class="font-bold inline-flex tracking-[-0.15em] items-center gap-2 py-6 text-color-full">
+					<span class="text-4.5xl">&dollar;</span>
+					<span class="text-7xl" x-text="billingMonthly ? plan.priceMonthly : plan.priceYearly"></span>
+				</p>
+				<ul class="pt-2 border-b border-color-divider/20 divide-y divide-color-divider/20 pb-px mb-7 text-color-muted">
+					<template x-for="item in plan.specifications" :key="item.id">
+						<li class="pt-4 pb-3.5" x-text="item.name"></li>
+					</template>
+				</ul>
+				<button
+					type="button"
+			        class="mb-px w-full px-5 py-3 tracking-wider text-sm border border-color-border rounded-md uppercase text-button-text bg-gradient-to-r from-button-gradient-start to-button-gradient-end hover:border-inverted-border hover:from-button-gradient-start-inverted hover:to-button-gradient-end-inverted hover:text-button-text-inverted duration-200 ease-in-out"
+				>
+					Learn More
+				</button>
 			</section>
 		</template>
 	</section>
